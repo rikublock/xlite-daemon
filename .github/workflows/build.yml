@@ -33,7 +33,7 @@ jobs:
       - run: ./gradlew nativeImage --info
       - run: chmod +x build/graal/xlite-daemon
       - run: mv build/graal/xlite-daemon build/graal/xlite-daemon-linux64
-          
+
       - uses: actions/upload-artifact@v3
         with:
           name: artifacts-linux
@@ -150,7 +150,6 @@ jobs:
           --verbose `
           -H:+ReportExceptionStackTraces
       - run: ren xlite-daemon.exe xlite-daemon-win64.exe
-
       - uses: actions/upload-artifact@v3
         with:
           name: artifacts-win
