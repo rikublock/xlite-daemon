@@ -32,12 +32,13 @@ jobs:
       - run: chmod +x gradlew
       - run: ./gradlew nativeImage --info
       - run: chmod +x build/graal/xlite-daemon
+      - run: mv build/graal/xlite-daemon build/graal/xlite-daemon-linux64
           
       - uses: actions/upload-artifact@v3
         with:
           name: artifacts-linux
           path: |
-            build/graal/xlite-daemon
+            build/graal/xlite-daemon-linux64
 
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
@@ -46,7 +47,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: |
-            build/graal/xlite-daemon
+            build/graal/xlite-daemon-linux64
 
   build_mac:
     runs-on: macos-12
@@ -63,12 +64,13 @@ jobs:
       - run: chmod +x gradlew
       - run: ./gradlew nativeImage --info
       - run: chmod +x build/graal/xlite-daemon
+      - run: mv build/graal/xlite-daemon build/graal/xlite-daemon-osx64
 
       - uses: actions/upload-artifact@v3
         with:
           name: artifacts-mac
           path: |
-            build/graal/xlite-daemon
+            build/graal/xlite-daemon-osx64
 
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
@@ -77,7 +79,7 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: |
-            build/graal/xlite-daemon
+            build/graal/xlite-daemon-osx64
 
   build_win:
     runs-on: windows-2022
@@ -147,12 +149,13 @@ jobs:
           --allow-incomplete-classpath `
           --verbose `
           -H:+ReportExceptionStackTraces
+      - run: ren xlite-daemon.exe xlite-daemon-win64.exe
 
       - uses: actions/upload-artifact@v3
         with:
           name: artifacts-win
           path: |
-            xlite-daemon.exe
+            xlite-daemon-win64.exe
 
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')
@@ -161,4 +164,4 @@ jobs:
           prerelease: true
           generate_release_notes: true
           files: |
-            xlite-daemon.exe
+            xlite-daemon-win64.exe
